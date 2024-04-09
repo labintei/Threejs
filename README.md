@@ -1,5 +1,9 @@
 Hello this is my project scene for threejs
 
+For launch the project :
+
+npx serve .
+
 I actually implement this system :
   A Raycaster for Select Object
   Controls for moove the camera (QZSD or arrow on my mac)
