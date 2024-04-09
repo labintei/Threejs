@@ -1,0 +1,43 @@
+[
+    {
+        "var" : "table",
+        "text" : "Il s'agit d'une table avec une jolie petite nappe"
+    },
+    {
+        "var" : "plant",
+        "text" : "Quel jolie petite plante :) !"
+    },
+    {
+        "var" : "Cocotte_minute",
+        "text" : "Ce n'est pas une casserole c'est une cocotte minute!"
+    },
+    {
+        "var" : "bol",
+        "text" : "C'est le bol que j'utilise chaque matin"
+    },
+    {
+        "var" : "planche",
+        "text" : "Qu'est ce qu'on pourrait bien découper sur cette planche"
+    },
+    {
+        "var" : "gobelet",
+        "text" : "J'aimerais bien boire de l'eau"
+    },
+    {
+        "var" : "gobelet001",
+        "text" : "Ou de la limonade"
+    },
+    {
+        "var" : "frigo",
+        "text" : "J'espere que le frigo n'est pas vide"
+    },
+    {
+        "var" : "microwave",
+        "text" : "Je devrais faire réchauffer mon tupperware"
+    },
+    {
+        "var" : "table",
+        "text" : "Cette table est pas trés pratique"
+    }
+]
+

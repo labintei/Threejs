@@ -1,0 +1,26 @@
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 {
+    color: red;
+}
+
+.my-card-class {
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(236, 161, 196);
+    color: rgb(38, 108, 127);
+    min-width: 500px;
+    height: 200px;
+    border-radius: 30px;
+    font-size: 30px;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
