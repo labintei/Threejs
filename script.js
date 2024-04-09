@@ -6,11 +6,32 @@ import { Capsule } from 'three/addons/math/Capsule.js';
 import { update } from './src/controls.js';
 import { returnjson } from './dialogs.js';
 
+
     const octree = new Octree();
 
     var playerCollider = new Capsule( new THREE.Vector3( -1.5,  0, 4.5 ), new THREE.Vector3( -1.5,  0 + 1.15, 4.5 ), 0.9);
 
-    let jsonString = returnjson();
+    let path = 'dialogs.json';
+    let jsonString;
+
+    fetch(path)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        jsonString = JSON.stringify(data);
+        jsonString = JSON.parse(jsonString);
+        console.log(jsonString); // Output the stringified JSON
+    })
+    .catch(error => {
+        console.error('Error fetching JSON:', error);
+    });
+
+   
+    
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0xBFEAE8);
@@ -41,8 +62,7 @@ import { returnjson } from './dialogs.js';
         selectObject(event, camera, scene, renderer);
     });
 
-    // Event listener for pointer lock change
-        document.addEventListener('pointerlockchange', () => {
+    document.addEventListener('pointerlockchange', () => {
         if (document.pointerLockElement === document.body) {
             document.addEventListener('mousemove', onMouseMove, false);
         } else {
@@ -50,17 +70,15 @@ import { returnjson } from './dialogs.js';
         }
     });
 
-    // Event listener for pointer lock error
     document.addEventListener('pointerlockerror', () => {
         console.error('Pointer lock error');
     });
 
-    // Request pointer lock when the document is clicked
     document.addEventListener('click', () => {
+        console.log('click');
         document.body.requestPointerLock();
     });
 
-    // Function to handle mouse movement
     function onMouseMove(event) {
         camera.rotation.y = (camera.rotation.y - event.movementX / 300) % (2 * Math.PI);
         const moverotation = (camera.rotation.x - event.movementY / 300) % (2 * Math.PI)
@@ -69,12 +87,12 @@ import { returnjson } from './dialogs.js';
     }
 
     const loader = new GLTFLoader();    
+    
     loader.load(
         './kitchen/scene.gltf',
         function (gltf) {
             gltf.scene.traverse(function (child) {
                 if (child.isMesh) {
-                    // Ajouter l'objet au tableau
                     objects.push(child);
                 }
             });
@@ -92,7 +110,8 @@ import { returnjson } from './dialogs.js';
                 child.visible = false;
             }
         });
-    }
+    };
+
     loader.load(
         './kitchen/collider/interaction.gltf',
         function (gltf) {
@@ -102,6 +121,7 @@ import { returnjson } from './dialogs.js';
                     interaction.push(child);
                 }
             });
+            console.log(interaction)
             hideAllObjects(gltf.scene);
             scene.add(gltf.scene);
         },
@@ -120,7 +140,7 @@ import { returnjson } from './dialogs.js';
         setTimeout(() => {
             card.remove();
         }, 3000);
-    }
+    };
 
     function selectObject(event, camera, scene, renderer) {
         const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
@@ -131,15 +151,17 @@ import { returnjson } from './dialogs.js';
         const intersects = raycaster.intersectObjects(interaction, true);
         if (intersects.length > 0) {
             const selectedObject = intersects[0].object;
-            const dialogs = jsonString.find((c) => (c.var == selectedObject.name));
-            if(dialogs)
-             displayCard(dialogs.text);
+            const name = selectedObject.name;
+            console.log(jsonString);
+            selectedObject.material.color.set(0xBFEAE8); // couleur rouge
+            const dialogs = jsonString.find((c) => (c.var == name));
+            displayCard(dialogs.text);
         }
-    }
+    };
 
     function animate() {
         update(camera.position, camera.rotation);
         requestAnimationFrame(animate);
         renderer.render(scene, camera);
-    }
+    };
     animate();

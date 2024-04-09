@@ -1,6 +1,5 @@
-function returnjson() {
-    let path = 'dialogs.json';
-    let jsonString;
+let path = 'dialogs.json';
+    let json;
     fetch(path)
     .then(response => {
         if (!response.ok) {
@@ -9,14 +8,17 @@ function returnjson() {
         return response.json();
     })
     .then(data => {
-        jsonString = JSON.stringify(data);
-        jsonString = JSON.parse(jsonString);
-        console.log(jsonString); // Output the stringified JSON
+        json = JSON.stringify(data);
+        json = JSON.parse(json);
+        console.log(json); // Output the stringified JSON
     })
     .catch(error => {
         console.error('Error fetching JSON:', error);
     });
-    return jsonString;
+
+function returnjson() {
+
+    return json;
 }
 
 export { returnjson};
